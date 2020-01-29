@@ -6,6 +6,11 @@ public class Price {
     public Price(String pris) {
         this.pris = pris;
     }
+
+    public String getPris() {
+        return pris;
+    }
+
     @Override
     public String toString() {
         return pris;

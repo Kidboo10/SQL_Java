@@ -1,6 +1,7 @@
 package Inlämning2.Controller;
 
 import Inlämning2.Model.Model;
+import Inlämning2.Model.Models.Shoe;
 import Inlämning2.View.View;
 
 import java.sql.SQLException;
