@@ -1,7 +1,5 @@
 package Inlämning2.View;
-
 import Inlämning2.Controller.Controller;
-
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -12,9 +10,9 @@ public class View {
     }
 
     public View() throws InterruptedException, SQLException {
+
         Controller cont = new Controller(this);
         Scanner sc = new Scanner(System.in);
-
         String shoes = "";
         String password;
         String customer;
@@ -23,27 +21,27 @@ public class View {
 
         while (true) {
             try {
-                printMessage("SKO_SHOPEN!!");
-                printMessage("LOGGA IN");
-                printMessage("SKRIV DITT FÖRNAMN EFTERNAMN");
+                printMessage("VÄLKOMMEN TILL SKO-SHOPEN!!\n" +
+                        "\nLOGGA IN\nSKRIV DITT FÖRNAMN EFTERNAMN");
                 customer = sc.nextLine();
-                printMessage("SKRIV DITT LÖSENORD");
+                printMessage("\nSKRIV DITT LÖSENORD");
                 password = sc.nextLine();
-                printMessage("---LOGGAR IN---");
-                Thread.sleep(2000);
+                printMessage("\n---LOGGAR IN---");
+                Thread.sleep(1000);
                 boolean x = true;
-                if(cont.isCustomerVerified(customer, password)) {
+                if (cont.isCustomerVerified(customer, password)) {
 
                     while (x) {
 
-                        printMessage("Lägg i varukorg .1), Se varukorg .2), bekräfta varukorg .3) logga ut .4) Exit .5)");
+                        printMessage("\nLägg i varukorg (1) | Se varukorg (2) | bekräfta varukorg (3) |"
+                                +"\nlogga ut (4) | Exit (5) |");
                         input = sc.nextLine();
 
                         switch (input) {
 
                             case "1":
                                 cont.ShowAllShoes();
-                                printMessage("Ange Märke, Storlek, Färg ");
+                                printMessage("\nAnge Märke, Storlek, Färg ");
                                 shoes = sc.nextLine();
                                 cont.getShoeFromInput(shoes);
                                 break;
@@ -53,18 +51,16 @@ public class View {
                                 break;
 
                             case "3":
-                                cont.confirmOrder(customer,shoes);
-                                cont.showBasket();
-                                cont.clearCurrentOrder();
+                                cont.confirmOrder(customer);
                                 break;
 
                             case "4":
-                                printMessage(customer + " utloggad");
-                                    x=false;
+                                printMessage("\n" + customer + " UTLOGGAD!");
+                                x = false;
                                 break;
 
                             case "5":
-                                printMessage("Tack för du handlar i SKO_SHOPEN!!\nBye!");
+                                printMessage("\nTACK FÖR DU HANDLAR PÅ SKO-SHOPEN!!\nBYE!");
                                 Thread.sleep(2000);
                                 System.exit(0);
                                 break;

@@ -21,32 +21,33 @@ public class Controller {
     public boolean isCustomerVerified(String customer, String password) {
         String[] customerName = customer.split(" ");
         if (model.isKundVerifierad(customerName[0], customerName[1], password)) {
-            view.printMessage(customerName[0] + " " + customerName[1] + " Är inloggad");
+            view.printMessage("\n" + customerName[0] + " " + customerName[1] + " Är inloggad");
             return true;
         } else
-            view.printMessage("felaktigt användare eller lösenord\nförsök igen");
+            view.printMessage("\nfelaktigt användare eller lösenord\nförsök igen");
         return false;
 
     }
 
     public void ShowAllShoes() {
-        model.showAllShoes().entrySet().forEach((k)->view.printMessage(k.getValue().toString()));
+        model.showAllShoes().entrySet().forEach((k) -> view.printMessage(k.getValue().toString()));
     }
-
 
     public void getShoeFromInput(String inputShoe) {
         String[] shoeInput = inputShoe.split(",");
         if (shoeInput.length != 3)
-            view.printMessage("Felaktig inmatning. [märke],[storlek],[färg]");
+            view.printMessage("\nFelaktig inmatning. [märke],[storlek],[färg]");
 
         else {
             if (!model.getProductIdByModelString(shoeInput[0], shoeInput[1], shoeInput[2]).isEmpty()) {
-                view.printMessage("Sko " + model.getShoeByModelString(shoeInput[0], shoeInput[1], shoeInput[2])
-                        + " \nÄr tillagd i varukorgen!");
-                shoeIdbasketList.add(model.getProductIdByModelString(shoeInput[0], shoeInput[1], shoeInput[2]));
-                shoebasketList.add(model.getShoeByModelString(shoeInput[0], shoeInput[1], shoeInput[2]));
+                view.printMessage("\n" + model.getShoeByModelString(shoeInput[0],
+                        shoeInput[1],shoeInput[2])+"\n---Är tillagd i varukorgen!---\n");
+                shoeIdbasketList.add(model.getProductIdByModelString(shoeInput[0],
+                        shoeInput[1], shoeInput[2]));
+                shoebasketList.add(model.getShoeByModelString(shoeInput[0],
+                        shoeInput[1], shoeInput[2]));
             } else
-                view.printMessage("Skon finns inte i lagret");
+                view.printMessage("\nSkon finns inte i lagret");
         }
 
     }
@@ -56,24 +57,29 @@ public class Controller {
         return model.getKundIdByString(id[0], id[1]);
     }
 
-    public void confirmOrder(String customerId, String skoId) throws SQLException {
-        String[] id = customerId.split(" ");
+    public void confirmOrder(String customerId) throws SQLException {
         String kundId = getCustomerIdFromInput(customerId);
         String beställningsId = null;
-        if(!shoeIdbasketList.isEmpty()) {
+        if (!shoeIdbasketList.isEmpty()) {
             for (String shoe : shoeIdbasketList) {
                 model.addToCart(kundId, beställningsId, shoe);
                 beställningsId = model.getOrderIdFromDB();
             }
-            view.printMessage("Order bekräftad: ");
+            showBasket();
+            view.printMessage("\n---Order bekräftad--- ");
+            clearCurrentOrder();
         } else
-            view.printMessage("Varukorgen är tom!\nLägg skor i varukorgen först!");
+            view.printMessage("\nVarukorgen är tom!\nLägg skor i varukorgen först!");
 
 
     }
 
     public void showBasket() {
-        shoebasketList.forEach(e->view.printMessage(e));
+        if (!shoebasketList.isEmpty()) {
+            view.printMessage("---VARUKORG---\n");
+            shoebasketList.forEach(e -> view.printMessage(e));
+        } else
+            view.printMessage("\n---VARUKORG TOM---\n");
     }
 
     public void clearCurrentOrder() {
