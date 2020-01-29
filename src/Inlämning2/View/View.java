@@ -29,7 +29,7 @@ public class View {
                 customer = sc.nextLine();
                 printMessage("SKRIV DITT LÖSENORD");
                 password = sc.nextLine();
-                printMessage("---LOGGING IN---");
+                printMessage("---LOGGAR IN---");
                 Thread.sleep(2000);
                 boolean x = true;
                 if(cont.isCustomerVerified(customer, password)) {
@@ -64,7 +64,7 @@ public class View {
                                 break;
 
                             case "5":
-                                printMessage("Thanks for shopping here\nBye!");
+                                printMessage("Tack för du handlar i SKO_SHOPEN!!\nBye!");
                                 Thread.sleep(2000);
                                 System.exit(0);
                                 break;

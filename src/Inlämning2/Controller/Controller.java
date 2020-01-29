@@ -10,8 +10,8 @@ import java.util.List;
 public class Controller {
     View view;
     Model model = new Model();
-    List<String> shoebasket = new ArrayList<>();
-    List<String> shoeIdbasket = new ArrayList<>();
+    List<String> shoebasketList = new ArrayList<>();
+    List<String> shoeIdbasketList = new ArrayList<>();
 
     public Controller(View view) {
         this.view = view;
@@ -42,8 +42,8 @@ public class Controller {
             if (!model.getProductIdByModelString(shoeInput[0], shoeInput[1], shoeInput[2]).isEmpty()) {
                 view.printMessage("Sko " + model.getShoeByModelString(shoeInput[0], shoeInput[1], shoeInput[2])
                         + " \nÄr tillagd i varukorgen!");
-                shoeIdbasket.add(model.getProductIdByModelString(shoeInput[0], shoeInput[1], shoeInput[2]));
-                shoebasket.add(model.getShoeByModelString(shoeInput[0], shoeInput[1], shoeInput[2]));
+                shoeIdbasketList.add(model.getProductIdByModelString(shoeInput[0], shoeInput[1], shoeInput[2]));
+                shoebasketList.add(model.getShoeByModelString(shoeInput[0], shoeInput[1], shoeInput[2]));
             } else
                 view.printMessage("Skon finns inte i lagret");
         }
@@ -59,8 +59,8 @@ public class Controller {
         String[] id = customerId.split(" ");
         String kundId = getCustomerIdFromInput(customerId);
         String beställningsId = null;
-        if(!shoeIdbasket.isEmpty()) {
-            for (String shoe : shoeIdbasket) {
+        if(!shoeIdbasketList.isEmpty()) {
+            for (String shoe : shoeIdbasketList) {
                 model.addToCart(kundId, beställningsId, shoe);
                 beställningsId = model.getOrderIdFromDB();
             }
@@ -72,12 +72,12 @@ public class Controller {
     }
 
     public void showBasket() {
-        shoebasket.forEach(e->view.printMessage(e));
+        shoebasketList.forEach(e->view.printMessage(e));
     }
 
     public void clearCurrentOrder() {
-        shoeIdbasket.clear();
-        shoebasket.clear();
+        shoeIdbasketList.clear();
+        shoebasketList.clear();
     }
 
 }

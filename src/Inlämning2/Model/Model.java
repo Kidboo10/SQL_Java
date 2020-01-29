@@ -12,23 +12,23 @@ public class Model {
     Repo re = new Repo();
 
     public boolean isKundVerifierad(String förnamn, String efternamn, String password){
-        Map<Integer, Kund> kundList = re.mapKundToHashmap();
+        Map<Integer, Kund> kundMap = re.mapKundToHashmap();
         förnamn.trim().toLowerCase();
         efternamn.trim().toLowerCase();
         password.trim().toLowerCase();
-        return kundList.entrySet().stream()
+        return kundMap.entrySet().stream()
                 .filter(x -> förnamn.equals(x.getValue().getFörNamn().trim().toLowerCase()))
                 .filter(x -> efternamn.equals(x.getValue().getEfterNamn().trim().toLowerCase()))
                 .anyMatch(x->password.equals(x.getValue().getLösenord()));
     }
 
     public String getProductIdByModelString(String model, String size, String coloer) {
-        Map<Integer, Shoe> fullShoeList = re.mapSkorToHashmap();
+        Map<Integer, Shoe> fullShoeMap = re.mapSkorToHashmap();
         model.trim().toLowerCase();
         size.trim().toLowerCase();
         coloer.trim().toLowerCase();
 
-        String result = fullShoeList.entrySet().stream()
+        String result = fullShoeMap.entrySet().stream()
                 .filter(x -> model.equals(x.getValue().getBrand().getBrandName().trim().toLowerCase()))
                 .filter(x -> size.equals(x.getValue().getSize().toString().trim().toLowerCase()))
                 .filter(x -> coloer.equals(x.getValue().getColor().toString().trim().toLowerCase()))
@@ -39,12 +39,12 @@ public class Model {
     }
 
     public String getShoeByModelString(String model, String size, String color) {
-        Map<Integer, Shoe> fullShoeList = re.mapSkorToHashmap();
+        Map<Integer, Shoe> fullShoeMap = re.mapSkorToHashmap();
         model.trim().toLowerCase();
         size.trim().toLowerCase();
         color.trim().toLowerCase();
 
-        String result = fullShoeList.values().stream()
+        String result = fullShoeMap.values().stream()
                 .filter(shoe -> model.equals(shoe.getBrand().getBrandName().trim().toLowerCase()))
                 .filter(shoe -> size.equals(shoe.getSize().toString().trim().toLowerCase()))
                 .filter(shoe -> color.equals(shoe.getColor().toString().trim().toLowerCase()))
@@ -62,20 +62,20 @@ public class Model {
         }
 
     public Map<Integer, Shoe> showAllShoes(){
-        Map<Integer, Shoe> List8;
-        List8 = re.mapSkorToHashmap();
-        List8.entrySet().forEach(entry -> {
+        Map<Integer, Shoe> allShoeMap;
+        allShoeMap = re.mapSkorToHashmap();
+        allShoeMap.entrySet().forEach(entry -> {
             System.out.println(entry.getValue().toString());
         });
-        return List8;
+        return allShoeMap;
     }
 
     public String getKundIdByString(String förnamn, String efternamn) {
-        Map<Integer, Kund> kundList = re.mapKundToHashmap();
+        Map<Integer, Kund> kundMap = re.mapKundToHashmap();
         förnamn.trim().toLowerCase();
         efternamn.trim().toLowerCase();
 
-        String result = kundList.entrySet().stream()
+        String result = kundMap.entrySet().stream()
                 .filter(x -> förnamn.equals(x.getValue().getFörNamn().trim().toLowerCase()))
                 .filter(x -> efternamn.equals(x.getValue().getEfterNamn().trim().toLowerCase()))
                 .map(x->x.getKey().toString())
